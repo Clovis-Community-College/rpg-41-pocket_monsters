@@ -108,6 +108,7 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 			switch (temp) {
 				case BUFF_ATTK:
 					return 2;
+				case   
 			}
 		}
 };
@@ -116,7 +117,7 @@ class Kieth: public Software_Engineers {
 	Kieth () {
 		name = "Kieth";
 		hp = 20;
-		speed = 5;
+		instinct = 5;
 		moves.at(0).set_move_name("Make Mod");
 		moves.at(0).set_description("Elevates ally to Mod status boosting their stats");
 		moves.at(0).set_dmg(0);
@@ -126,6 +127,8 @@ class Kieth: public Software_Engineers {
 		moves.at(1).set_description("Removes all bugs in code healing allies");
 		moves.at(1).set_dmg(-2);
 		moves.at(1).set_special_effect(false);
+		moves.at(1).set_area_of_effect(false);
+		//moves.at(2).set_move_name("
 	}
 };
 class Bjarne: public Software_Engineers {
@@ -137,9 +140,9 @@ class Mencareli: public Software_Engineers {
 class Mark : public Software_Engineers {//uses tcg cards to cause different effects
 };
 
-class Doggos : public slop, public moves{//monster class
-};
 
+class Doggos : public slop, public move{//monster class
+};
 class The_Old_Yeller : public Doggos{
 };
 class German_Sheperd : public Doggos{
