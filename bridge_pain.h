@@ -11,8 +11,6 @@ using namespace datastructure;
 
 void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 	if(count < 2) return;
-	cout << count << endl;
-	this_thread::sleep_for(1s);
 	int pivot = array.at(count - 1);
 	slop *pivotPeep = peeps.at(count - 1);
 	int i = 0, j = count - 1;
@@ -124,10 +122,12 @@ class Sphere{//circular linked list and its info
 				root->setPrev(currentSloppy);
 			}
 		}
-		
+		currentSloppy = root;	
 		//TODO: initialize the stuff
 	}
-	
+	slop* getSlop (){
+		return (currentSloppy->getValue());
+	}
 	~Sphere(){
 		CircDLelement<slop*> *curNode = currentSloppy;
 		CircDLelement<slop*> *nextNode;
