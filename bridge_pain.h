@@ -65,7 +65,7 @@ void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 			peeps.at(k) = pivotPeep;
 		}
 	}
-	for(int k = array.size() - 1; k >= 0; k--){
+	/*for(int k = array.size() - 1; k >= 0; k--){
 		cout << k << endl;
 		if(k < i){
 			delete splitPeepsOne.at(k);
@@ -75,7 +75,7 @@ void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 			delete pivotPeep;
 		}
 
-	}
+	}*/
 
 }
 
@@ -84,8 +84,8 @@ void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 class Sphere{//circular linked list and its info
 	vector<slop*> softwareFolks;			//hero list 
 	vector<slop*> possiblyEvilSoftwareFolks;//enemy list 
-	CircDLelement<slop> *root;				//"first" element, just here for moral support
-	CircDLelement<slop> *currentSloppy;		//iykyk
+	CircDLelement<slop*> *root;				//"first" element, just here for moral support
+	CircDLelement<slop*> *currentSloppy;		//iykyk
 	int size = 0;
 
 	public:
@@ -105,12 +105,46 @@ class Sphere{//circular linked list and its info
 			massiveGuyVec.push_back(theBadGuys.at(i));
 		}
 		cout << "There are " << massiveGuyVec.size() << " creatures in combat\n";
+		if(!massiveGuyVec.size()) return;
 		quicksort(speeds, massiveGuyVec, massiveGuyVec.size());
 		for(int i = 0; i < massiveGuyVec.size(); i++){
 			cout << massiveGuyVec.at(i)->get_name() << " is moving at " << speeds.at(i) << " mph\n";
+			if(i == 0) {
+				root = new CircDLelement<slop*>;
+				root->setValue(massiveGuyVec.at(i));
+				root->setPrev(root);
+				root->setNext(root);
+				currentSloppy = root;
+			} else {
+				currentSloppy->setNext(new CircDLelement<slop*>);
+				currentSloppy->getNext()->setPrev(currentSloppy);
+				currentSloppy = currentSloppy->getNext();
+				currentSloppy->setValue(massiveGuyVec.at(i));
+				currentSloppy->setNext(root);
+				root->setPrev(currentSloppy);
+			}
 		}
+		
 		//TODO: initialize the stuff
 	}
-
+	
+	~Sphere(){
+		CircDLelement<slop*> *curNode = currentSloppy;
+		CircDLelement<slop*> *nextNode;
+		CircDLelement<slop*> *prevNode;
+		while(curNode){
+			if(curNode->getNext() == curNode){
+				delete curNode;
+				return;
+			}
+			prevNode = curNode->getPrev();
+			nextNode = curNode->getNext();
+			nextNode->setPrev(prevNode);
+			prevNode->setNext(nextNode);
+			delete curNode;
+			curNode = nextNode;
+		}
+	}
+	
 
 };
