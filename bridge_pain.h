@@ -63,18 +63,6 @@ void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 			peeps.at(k) = pivotPeep;
 		}
 	}
-	/*for(int k = array.size() - 1; k >= 0; k--){
-		cout << k << endl;
-		if(k < i){
-			delete splitPeepsOne.at(k);
-		} else if(k > i) {
-			delete splitPeepsTwo.at(k - i);
-		} else {
-			delete pivotPeep;
-		}
-
-	}*/
-
 }
 
 
@@ -124,6 +112,24 @@ class Sphere{//circular linked list and its info
 		}
 		currentSloppy = root;	
 		//TODO: initialize the stuff
+	}
+	void deleteSlop(){
+		if(currentSloppy == nullptr) return;
+		if(currentSloppy->getNext() == currentSloppy){
+			delete currentSloppy;
+			currentSloppy = nullptr;
+			root = nullptr;
+			return;
+		}
+		CircDLelement<slop*> *nextSlop = currentSloppy->getNext();
+		CircDLelement<slop*> *prevSlop = currentSloppy->getPrev();
+		prevSlop->setNext(nextSlop);
+		nextSlop->setPrev(prevSlop);
+		delete currentSloppy;
+		currentSloppy = nextSlop;
+	}
+	void nextTurn(){
+		currentSloppy = currentSloppy->getNext();
 	}
 	slop* getSlop (){
 		return (currentSloppy->getValue());
