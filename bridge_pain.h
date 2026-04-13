@@ -1,5 +1,6 @@
 #pragma once
 #include "/public/read.h" // IWYU pragma: keep
+#include <thread>
 #include <vector>         // IWYU pragma: keep
 #include "Bridges.h"
 #include "CircDLelement.h"
@@ -9,18 +10,19 @@ using namespace bridges;
 using namespace datastructure;
 
 void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
+	if(count < 2) return;
 	int pivot = array.at(count - 1);
-	slop pivotPeep = peeps.at(count - 1);
-	int i, j;
+	slop *pivotPeep = peeps.at(count - 1);
+	int i = 0, j = count - 1;
 	while (j > i) {
-		while (array.at(i) < array.at(pivot)) {
+		while (array.at(i) < pivot) {
 			i++;
 		}
-		while (array.at(j) == pivot && j > i) {
+		while (array.at(j) >= pivot && j > i) {
 			j--;
 		}
 		if (j > i) {
-			slop swapPeep = peeps.at(i);
+			slop *swapPeep = peeps.at(i);
 			peeps.at(i) = peeps.at(j);
 			peeps.at(j) = swapPeep;
 			int swap = array.at(i);
@@ -34,36 +36,121 @@ void quicksort(vector<int> &array, vector<slop*> &peeps, int count) {
 		array.at(count - 1) = array.at(i);
 		array.at(i) = pivot;
 	}
-	quicksort(array, peeps, i);
-	quicksort(array + (i + 1), count - (i + 1)); //TODO: figure out what array + (i + 1) does if array[]
+	vector<int> splitArrayOne;
+	vector<int> splitArrayTwo;
+	vector<slop*> splitPeepsOne;
+	vector<slop*> splitPeepsTwo;
+	for(int k = 0; k < array.size(); k++){
+		if(k < i){
+			splitArrayOne.push_back(array.at(k));
+			splitPeepsOne.push_back(peeps.at(k));
+		} else {
+			splitArrayTwo.push_back(array.at(k));
+			splitPeepsTwo.push_back(peeps.at(k));
+		}
+	}
+	quicksort(splitArrayOne, splitPeepsOne, i);
+	quicksort(splitArrayTwo, splitPeepsTwo, count - (i + 1)); //TODO: figure out what array + (i + 1) does if array[]
+	for(int k = 0; k < array.size(); k++){
+		if(k < i){
+			array.at(k) = splitArrayOne.at(k);
+			peeps.at(k) = splitPeepsOne.at(k);
+		} else if(k > i) {
+			array.at(k) = splitArrayTwo.at(k - i - 1);
+			peeps.at(k) = splitPeepsTwo.at(k - i - 1);
+		} else {
+			array.at(k) = pivot;
+			peeps.at(k) = pivotPeep;
+		}
+	}
 }
+
 
 
 class Sphere{//circular linked list and its info
 	vector<slop*> softwareFolks;			//hero list 
 	vector<slop*> possiblyEvilSoftwareFolks;//enemy list 
-	CircDLelement<slop> *root;				//"first" element, just here for moral support
-	CircDLelement<slop> *currentSloppy;		//iykyk
+	CircDLelement<slop*> *root;				//"first" element, just here for moral support
+	CircDLelement<slop*> *currentSloppy;		//iykyk
 	int size = 0;
 
 	public:
 	Sphere(vector<slop*> &theGoodGuys, vector<slop*> &theBadGuys){
 		vector<int> speeds;
-		vector<int> massiveGuyVec;
+		vector<slop*> massiveGuyVec;
 		softwareFolks = theGoodGuys;
 		possiblyEvilSoftwareFolks = theBadGuys;
 		for(int i = 0; i < theGoodGuys.size(); i++){
 			int speed = (rand() % 20) + theGoodGuys.at(i)->get_instinct();
 			speeds.push_back(speed);
+			massiveGuyVec.push_back(theGoodGuys.at(i));
 		}
 		for(int i = 0; i < theBadGuys.size(); i++){
 			int speed = rand() % 20 + theBadGuys.at(i)->get_instinct();
 			speeds.push_back(speed);
+			massiveGuyVec.push_back(theBadGuys.at(i));
 		}
+		cout << "There are " << massiveGuyVec.size() << " creatures in combat\n";
+		if(!massiveGuyVec.size()) return;
 		quicksort(speeds, massiveGuyVec, massiveGuyVec.size());
-
+		for(int i = 0; i < massiveGuyVec.size(); i++){
+			cout << massiveGuyVec.at(i)->get_name() << " is moving at " << speeds.at(i) << " mph\n";
+			if(i == 0) {
+				root = new CircDLelement<slop*>;
+				root->setValue(massiveGuyVec.at(i));
+				root->setPrev(root);
+				root->setNext(root);
+				currentSloppy = root;
+			} else {
+				currentSloppy->setNext(new CircDLelement<slop*>);
+				currentSloppy->getNext()->setPrev(currentSloppy);
+				currentSloppy = currentSloppy->getNext();
+				currentSloppy->setValue(massiveGuyVec.at(i));
+				currentSloppy->setNext(root);
+				root->setPrev(currentSloppy);
+			}
+		}
+		currentSloppy = root;	
 		//TODO: initialize the stuff
 	}
-
+	void deleteSlop(){
+		if(currentSloppy == nullptr) return;
+		if(currentSloppy->getNext() == currentSloppy){
+			delete currentSloppy;
+			currentSloppy = nullptr;
+			root = nullptr;
+			return;
+		}
+		CircDLelement<slop*> *nextSlop = currentSloppy->getNext();
+		CircDLelement<slop*> *prevSlop = currentSloppy->getPrev();
+		prevSlop->setNext(nextSlop);
+		nextSlop->setPrev(prevSlop);
+		delete currentSloppy;
+		currentSloppy = nextSlop;
+	}
+	void nextTurn(){
+		currentSloppy = currentSloppy->getNext();
+	}
+	slop* getSlop (){
+		return (currentSloppy->getValue());
+	}
+	~Sphere(){
+		CircDLelement<slop*> *curNode = currentSloppy;
+		CircDLelement<slop*> *nextNode;
+		CircDLelement<slop*> *prevNode;
+		while(curNode){
+			if(curNode->getNext() == curNode){
+				delete curNode;
+				return;
+			}
+			prevNode = curNode->getPrev();
+			nextNode = curNode->getNext();
+			nextNode->setPrev(prevNode);
+			prevNode->setNext(nextNode);
+			delete curNode;
+			curNode = nextNode;
+		}
+	}
+	
 
 };
