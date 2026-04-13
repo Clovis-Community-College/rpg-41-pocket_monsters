@@ -11,7 +11,18 @@ class slop {//Actor class but my names are better
 		int x = 0;
 		int y = 0;
 		int movement = 0; //this is how many spaces each class can move within the battlefield
+		int sick_days = 0;
 	public:
+	virtual ~slop() = default;
+		enum SICKNESS {
+			POISONED,
+			HEMORAGE,
+			WEAKNESS,
+			SLOTH,
+			CAFFIENATED,
+			ROIDED,
+			VITALITY
+		};
 		string get_name() const {
 			return name;
 		}
@@ -67,7 +78,8 @@ class move {
 			DEBUFF_INSTINCT,
 			OMNI_DEBUFF,
 			TOXIC,//damage over time monsters and charcters will have different ones so each one will pick 
-			HEALING_OVERTIME
+			HEALING_OVERTIME,
+			BLEED //TODO connect the bleed to hemorage 
 		};
 		string get_move_name() const {
 			return move_name;
@@ -188,9 +200,40 @@ class Bjarne: public Software_Engineers {//maybe make status its own class
 		moves.at(0).is_special_effect(false);
 		moves.at(0).set_area_of_effect(false);
 		moves.at(0).set_range(1);
+		moves.at(1).set_move_name("G U N");
+		moves.at(1).set_description("gun");
+		moves.at(1).set_dmg(2);
+		moves.at(1).is_special_effect(true);
+		moves.at(1).set_special_effect(BLEED);
+		moves.at(1).set_area_of_effect(true);
+		moves.at(1).set_range(3);
+		moves.at(2).set_move_name("ShOt");
+		moves.at(2).set_description("shot");
+		moves.at(2).set_dmg(4);
+		moves.at(2).is_special_effect(false);
+		moves.at(2).set_area_of_effect(false);
+		moves.at(2).set_range(6);
 	}
 };
-class Guava: public Software_Engineers {
+class Guava: public Software_Engineers {//AOE guy
+	Guava() {
+		name = "Guava";
+		hp = 25;
+		instinct = 3;
+		moves.at(0).set_move_name("Garbage Collecter");
+		moves.at(0).set_description("removes all ally afflictions good and bad");
+		moves.at(0).set_dmg(0);
+		moves.at(0).is_special_effect(true);
+		moves.at(0).set_area_of_effect(true);
+		moves.at(0).set_range(1);
+		moves.at(1).set_move_name("Trash Panda Stampede");//plan is to make this a huge AOE
+		moves.at(1).set_description("releases the rabies free raccoons from the garbage collector");
+		moves.at(1).set_dmg(2);
+		moves.at(1).is_special_effect(false);
+		moves.at(1).set_area_of_effect(true);
+		moves.at(1).set_range(3);
+		moves.at(2).set_move_name("Raccoon Rain");
+	}
 };
 class Mencareli: public Software_Engineers {
 };
@@ -199,14 +242,40 @@ class Mark : public Software_Engineers {//uses tcg cards to cause different effe
 
 
 class Doggos : public slop, public move{//monster class
+	vector<move> moves{2};
 };
 class The_Old_Yeller : public Doggos{
+	The_Old_Yeller() {
+		name = "The Old Yeller";
+		hp = 150;
+		instinct = 5;
+	}
 };
 class German_Sheperd : public Doggos{
+	German_Sheperd() {
+		name = "German_Sheperd";
+		hp = 6;
+		instinct = 2;
+	}
 };
 class Chihuahua : public Doggos{
+	Chihuahua() {
+		name = "Chihuahua";
+		hp = 3;
+		instinct = 5;
+	}
 };
 class Husky : public Doggos {
+	Husky() {
+		name = "Husky";
+		hp = 8;
+		instinct = 3;
+	}
 };
 class Turtle : public Doggos {
+	Turtle() {
+		name = "Dog";
+		hp = 15;
+		instinct = 1;
+	}
 };
