@@ -79,6 +79,18 @@ void create_map() {
 			if (cur_y > 0) cur_y--;
 			break;
 		}
+		if (ch == KEY_DOWN) {
+			if (cur_y > 0) cur_y++;
+			break;
+		}
+		if (ch == KEY_LEFT) {
+			if (cur_x > 0) cur_x--;
+		    break;
+		}
+		if (ch == KEY_RIGHT) {
+			if (cur_x > 0) cur_x++;
+			break;
+		}
 	}
 	endwin();
 }
