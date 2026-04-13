@@ -48,14 +48,19 @@ void create_map() {
 	nl();
 	cbreak();
 	noecho();
-	WINDOW * map_window{};
-	getmaxyx(map_window, MAX_Y, MAX_X);
-	map_window = newwin(VIEWER_LINES, VIEWER_COLS, MAX_Y/2, MAX_X/2); 
+	WINDOW * map_pad{};
+	getmaxyx(map_pad, MAX_Y, MAX_X);
+	map_pad = newpad(VIEWER_LINES, VIEWER_COLS); 
 	move(MAX_Y, MAX_X);
 	refresh();
 
-	//map part
-
+	for (int i = 0; i < MAP_WIDTH; i++) {
+		for (int j = 0; j < MAP_HEIGHT; j++) {
+			// waddch (map_pad, finish the rest of this for map generation)
+		}
+	}
+	int cur_y = MAX_Y/2;
+	int cur_x = MAX_X/2; 
 	int leftcol = '|';
 	int rightcol = '|';
 	int toprow = '-';
@@ -64,11 +69,17 @@ void create_map() {
 	int trc = '=';
 	int blc = '=';
 	int brc = '=';
-	wborder(map_window, leftcol, rightcol, toprow, btmrow, tlc, trc, blc, brc);
-	mvwprintw(map_window, VIEWER_LINES/2, VIEWER_COLS/2, "Welcome to the Game");
-	wrefresh(map_window);
+	wborder(map_pad, leftcol, rightcol, toprow, btmrow, tlc, trc, blc, brc);
+	mvwprintw(map_pad, VIEWER_LINES/2, VIEWER_COLS/2, "Welcome to the Game");
+	wrefresh(map_pad);
 	int ch = getch();
 	//take input for arrow keys
+	while (ch != 'q') {
+		if (ch == KEY_UP) {
+			if (cur_y > 0) cur_y--;
+			break;
+		}
+	}
 	endwin();
 }
 
