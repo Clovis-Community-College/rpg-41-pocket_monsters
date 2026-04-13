@@ -21,6 +21,27 @@ int MAX_Y{};
 //2. Update Logic (move the player x , y)
 //3. Render(draw the map) *similar to what Q said
 //4. Refresh (making ncurses showing the changes you made)
+void worldGeneration() {
+	//TODO:
+	/*Create a vector<string> or vector<vector<char>>
+	and make a nested for loop that generates the 
+	map and its size*/
+}
+
+int XPosition() {
+	//TODO:
+	//after map generation, return the 
+	//x position of the character 
+	//in relation from the bigger map_window
+	//so that you can get it in terms of 
+	//just x instead of a char
+}
+
+int YPosition() {
+	//TODO:
+	//same thing as above
+	//but for y position
+}
 
 void create_map() {
 	initscr();
@@ -31,9 +52,23 @@ void create_map() {
 	getmaxyx(map_window, MAX_Y, MAX_X);
 	map_window = newwin(VIEWER_LINES, VIEWER_COLS, MAX_Y/2, MAX_X/2); 
 	move(MAX_Y, MAX_X);
+	refresh();
 
-	//do the map now
+	//map part
 
+	int leftcol = '|';
+	int rightcol = '|';
+	int toprow = '-';
+	int btmrow = '-';
+	int tlc = '=';
+	int trc = '=';
+	int blc = '=';
+	int brc = '=';
+	wborder(map_window, leftcol, rightcol, toprow, btmrow, tlc, trc, blc, brc);
+	mvwprintw(map_window, VIEWER_LINES/2, VIEWER_COLS/2, "Welcome to the Game");
+	wrefresh(map_window);
+	int ch = getch();
+	//take input for arrow keys
 	endwin();
 }
 
