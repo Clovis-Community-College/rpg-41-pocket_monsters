@@ -3,8 +3,9 @@
 #include "class_slop.h"
 #include "inventory.h"
 #include "Ncurses.h"
+#include "combat.h"
 using namespace std;
 
 int main() {
-	cout << "Hello World!" << endl;
+	combat();
 }
