@@ -13,6 +13,9 @@ class slop {//Actor class but my names are better
 		int y = 0;
 		int movement = 0; //this is how many spaces each class can move within the battlefield
 		int sick_days = 0;
+		int batt_col = 0;
+		int batt_line = 0;
+		char sprite = '?';
 	public:
 	virtual ~slop() = default;
 		enum SICKNESS {
@@ -165,11 +168,13 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 };
 
 class Kieth: public Software_Engineers {
-	Kieth() {
-		name = "Kieth";
-		hp = 20;
-		instinct = 5;
-	}
+	public:
+		Kieth() {
+			name = "Kieth";
+			hp = 20;
+			instinct = 5;
+			sprite = 'K';
+		}
 };
 class Make_Mod: public move {
 	public:
@@ -220,11 +225,13 @@ class SegFault: public move {
 		}
 };
 class Bjarne: public Software_Engineers {//maybe make status its own class
-	Bjarne() {
-		name = "Bjarne";
-		hp = 30;
-		instinct = 3;
-	}
+	public:
+		Bjarne() {
+			name = "Bjarne";
+			hp = 30;
+			instinct = 3;
+			sprite = 'B';
+		}
 };
 class Shotgun: public move {
 	Shotgun() {
@@ -270,11 +277,13 @@ class ShOt: public move {
 	}
 };
 class Guava: public Software_Engineers {//AOE guy
-	Guava() {
-		name = "Guava";
-		hp = 25;
-		instinct = 3;
-	}
+	public:
+		Guava() {
+			name = "Guava";
+			hp = 25;
+			instinct = 3;
+			sprite = 'G';
+		}
 };
 class Garbage_Collector: public move {
 	Garbage_Collector() {
@@ -305,11 +314,13 @@ class Trash_Panda_Stampede: public move {
 	};
 };
 class Mencareli: public Software_Engineers {
-	Mencareli() {
-		name = "Mencareli";
-		hp = 50;
-		instinct = 1;
-	}
+	public:
+		Mencareli() {
+			name = "Mencareli";
+			hp = 50;
+			instinct = 1;
+			sprite = 'M';
+		}
 };
 class Rage_Bait: public move {
 	Rage_Bait() {
@@ -368,6 +379,7 @@ class The_Old_Yeller : public Doggos{
 		name = "The Old Yeller";
 		hp = 150;
 		instinct = 5;
+		sprite = 'Y';
 	}
 };
 class German_Sheperd : public Doggos{
@@ -375,6 +387,7 @@ class German_Sheperd : public Doggos{
 		name = "German_Sheperd";
 		hp = 6;
 		instinct = 2;
+		sprite = 'N';
 	}
 };
 class Chihuahua : public Doggos{
@@ -382,6 +395,7 @@ class Chihuahua : public Doggos{
 		name = "Chihuahua";
 		hp = 3;
 		instinct = 5;
+		sprite = 'c';
 	}
 };
 class Husky : public Doggos {
@@ -389,6 +403,7 @@ class Husky : public Doggos {
 		name = "Husky";
 		hp = 8;
 		instinct = 3;
+		sprite = 'H';
 	}
 };
 class Turtle : public Doggos {
@@ -396,5 +411,6 @@ class Turtle : public Doggos {
 		name = "Dog";
 		hp = 15;
 		instinct = 1;
+		sprite = 'D';
 	}
 };

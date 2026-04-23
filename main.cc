@@ -4,8 +4,15 @@
 #include "inventory.h"
 #include "Ncurses.h"
 #include "combat.h"
+#include <map>
 using namespace std;
 
 int main() {
+	map<string, Software_Engineers> party = {
+		{"Kieth", Kieth()},
+		{"Bjarne", Bjarne()},
+		{"Guava", Guava()},
+		{"Mencareli", Mencareli()}
+	};
 	combat();
 }
