@@ -242,6 +242,7 @@ class Kieth: public Software_Engineers {
 			hp = 20;
 			instinct = 5;
 			sprite = 'K';
+			movement = 10;
 		}
 };
 class Shotgun: public move {
@@ -297,6 +298,7 @@ class Bjarne: public Software_Engineers {//maybe make status its own class
 			hp = 30;
 			instinct = 3;
 			sprite = 'B';
+			movement = 5;
 		}
 };
 class Garbage_Collector: public move {
@@ -336,6 +338,7 @@ class Guava: public Software_Engineers {//AOE guy
 			hp = 25;
 			instinct = 3;
 			sprite = 'G';
+			movement = 3;
 		}
 };
 class Rage_Bait: public move {
@@ -393,6 +396,7 @@ class Mencareli: public Software_Engineers {
 			hp = 50;
 			instinct = 1;
 			sprite = 'M';
+			movement = 7;
 		}
 };
 class Mark : public Software_Engineers {//uses tcg cards to cause different effects
