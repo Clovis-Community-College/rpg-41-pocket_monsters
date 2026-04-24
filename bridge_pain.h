@@ -116,6 +116,7 @@ class Sphere{//circular linked list and its info
 			if(i == 0) {
 				root = new CircDLelement<shared_ptr<slop>>;
 				root->setValue(massiveGuyVec.at(i));
+				root->setLabel(massiveGuyVec.at(i)->get_name());
 				root->setPrev(root);
 				root->setNext(root);
 				currentSloppy = root;
@@ -124,6 +125,7 @@ class Sphere{//circular linked list and its info
 				currentSloppy->getNext()->setPrev(currentSloppy);
 				currentSloppy = currentSloppy->getNext();
 				currentSloppy->setValue(massiveGuyVec.at(i));
+				currentSloppy->setLabel(massiveGuyVec.at(i)->get_name());
 				currentSloppy->setNext(root);
 				root->setPrev(currentSloppy);
 			}
