@@ -3,25 +3,58 @@
 #include <vector> // IWYU pragma: keep
 using namespace std;
 
-struct Item {
+struct Object {
 	string name;
 	int amount;
-	string description;
+	int cost;
+	bool key_item = false;
+	Object *right = nullptr;
+	Object *left = nullptr;
+
 };
 
-class inventoryBST {
+class inventory {
 	private:
-	multimap<string, Item> item;
-
+		Object *root = nullptr;
 	public:
-	template <typename T, typename K>
-	void print(const multimap<T, K>& item) {
-		if (item.empty()) {
-			cout << "Inventory is empty.\n";
-		return;
+		void insert(Object *temp) {
+			if(root == nullptr) {
+				root = temp;
+				return;
+			}
+			Object *cur = root;
+			while(true) {
+				if(temp->name == cur->name) {
+					cur->amount++;
+					return;
+				}
+				if(temp->name > cur->name) {
+					if(cur->right == nullptr) {
+						cur->right = temp;
+						return;
+					}
+					temp = cur->right;
+				}
+				else {
+					if(cur->left == nullptr) {
+						cur->left = temp;
+						return;
+					}
+					temp = cur->left;
+				}
+			}
 		}
-		for (const auto& [name, details] : item) {
-			cout << "[" << name << "] = " << details << endl;
+		void print() const{
+			if(root != nullptr) {
+				print(root);
+			}
 		}
-	}
+		void print(Object *cur) const {
+			if(cur == nullptr) {
+				return; 
+			}
+			print(cur->left);
+			cout << "Item Name: " << cur->name << " Value: " << cur->cost << " Amount: " << cur->amount << endl;
+			print(cur->right);
+		}
 };

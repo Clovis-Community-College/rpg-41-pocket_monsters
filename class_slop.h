@@ -19,6 +19,7 @@ class slop {//Actor class but my names are better
 		bool life = true;//if false they are dead
 	public:
 	virtual ~slop() = default;
+		bool rabies = false;
 		enum SICKNESS {
 			POISONED,
 			HEMORAGE,
@@ -156,7 +157,6 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 		vector<move> moves{3};
 		//STATUS sp_effect;
 	public:
-		bool criminal_record = false;
 		void add_move(move &temp, int move_index) {
 			moves.at(move_index) = temp;
 		}
@@ -299,15 +299,6 @@ class Bjarne: public Software_Engineers {//maybe make status its own class
 			sprite = 'B';
 		}
 };
-/*class Guava: public Software_Engineers {//AOE guy
-	public:
-		Guava() {
-			name = "Guava";
-			hp = 25;
-			instinct = 3;
-			sprite = 'G';
-		}
-};*/
 class Garbage_Collector: public move {
 	Garbage_Collector() {
 		auto& [up, down, left, right] = area_of_effect;
@@ -347,15 +338,6 @@ class Guava: public Software_Engineers {//AOE guy
 			sprite = 'G';
 		}
 };
-/*class Mencareli: public Software_Engineers {
-	public:
-		Mencareli() {
-			name = "Mencareli";
-			hp = 50;
-			instinct = 1;
-			sprite = 'M';
-		}
-};*/
 class Rage_Bait: public move {
 	Rage_Bait() {
 		auto& [up, down, left, right] = area_of_effect;
@@ -420,7 +402,6 @@ class Mark : public Software_Engineers {//uses tcg cards to cause different effe
 class Doggos : public slop, public move{//monster class
 	vector<move> moves{2};
 	public:
-		bool criminal_record = true;
 };
 class Rabies_Foam: public move {
 	public:
@@ -445,6 +426,7 @@ class The_Old_Yeller : public Doggos{
 		hp = 150;
 		instinct = 5;
 		sprite = 'Y';
+		rabies = true;
 	}
 };
 class Sieg_Heil: public move {
@@ -470,6 +452,7 @@ class German_Sheperd : public Doggos{
 		hp = 6;
 		instinct = 2;
 		sprite = 'N';
+		rabies = true;
 	}
 };
 class Yo_Quiero_Taco_Bell : public move {
@@ -495,6 +478,7 @@ class Chihuahua : public Doggos{
 		hp = 3;
 		instinct = 5;
 		sprite = 'c';
+		rabies = true;
 	}
 };
 class Pup_Cup: public move {
@@ -521,6 +505,7 @@ class Husky : public Doggos {
 		hp = 8;
 		instinct = 3;
 		sprite = 'H';
+		rabies = true;
 	}
 };
 class Beyblade: public move {
@@ -546,5 +531,6 @@ class Turtle : public Doggos {
 		hp = 15;
 		instinct = 1;
 		sprite = 'D';
+		rabies = true;
 	}
 };

@@ -1,4 +1,5 @@
 //#include "/public/read.h" // IWYU pragma: keep
+#include <memory>
 #include <vector>         // IWYU pragma: keep
 //#include "class_slop.h"
 #include <curses.h>
@@ -10,8 +11,8 @@
 using namespace std;
 
 void combat(map<string, Software_Engineers> &party) {
-	vector<slop*> after_party = {new Kieth(), new Bjarne(), new Guava(), new Mencareli()};
-	vector<slop*> dog_park = {new Turtle(), new Husky(), new Chihuahua(), new German_Sheperd()};
+	vector <shared_ptr<slop>> after_party = {make_shared<Kieth>(), shared_ptr<Bjarne>(), make_shared<Guava>(), make_shared<Mencareli>()};
+	vector<shared_ptr<slop>> dog_park = {make_shared<Turtle>(), make_shared<Husky>(), make_shared<Chihuahua>(), make_shared<German_Sheperd>()};
 	Sphere foot_race(after_party, dog_park);
 	srand(time(nullptr));
 	vector<string> battle_map {	
@@ -130,8 +131,21 @@ void combat(map<string, Software_Engineers> &party) {
 	pack.at("German_Sheperd").set_battle_position(4,43);
 	move(4,43);
 	addch(pack.at("German_Sheperd").get_sprite());
+	int dog_pop = 4;
+	int alive = 4;
+	string temp;
 	for(;;) {
-
+		if(foot_race.getSlop()->rabies) {
+			temp = foot_race.getSlop()->get_name();
+			pack.at(temp).set_battle_position(pack.at(temp).get_batt_col() + pack.at(temp).get_movement(),pack.at(temp).get_batt_line());
+			move(pack.at(temp).get_batt_col(), pack.at(temp).get_batt_line());
+		}
+		else {
+			temp = foot_race.getSlop()->get_name();
+			party.at(temp).set_battle_position(party.at(temp).get_batt_col() + party.at(temp).get_movement(), party.at(temp).get_batt_line());
+			move(party.at(temp).get_batt_col(), party.at(temp).get_batt_line());
+		}
+		addch(foot_race.getSlop()->get_sprite());
 		break;
 	}
 	getch();//waits for user key;
