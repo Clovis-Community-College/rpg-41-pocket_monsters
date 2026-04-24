@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "class_slop.h"
 #include "/public/colors.h"
+//#include <ncurses.h>
 #include <chrono>
 using namespace std;
 
@@ -17,6 +18,8 @@ void turned_based() {
 	Husky husky;
 
 	clearscreen();
+	//initscr();
+	//clear();
 	cout << "YOU HAVE ENTERED COMBAT" << endl;
 	set_raw_mode(true);
 
@@ -27,6 +30,8 @@ void turned_based() {
 
 	while(true) {
 		set_raw_mode(true);
+		//raw();
+		//noecho();
 		if(good_alive == 0 || c == 'q') {
 			cout << "YOU LOST RETURN TO MONKE" << endl;
 			exit(0);
@@ -49,6 +54,7 @@ void turned_based() {
 		cout << "we should not use AI to cheat on our CEs" << endl;
 		set_raw_mode(false);
 		auto start = chrono::high_resolution_clock::now();
+		//echo();
 		getline(cin, monkey_type);
 		auto end = chrono::high_resolution_clock::now();
 		chrono::duration<double> time_wasted = end - start;
@@ -63,5 +69,6 @@ void turned_based() {
 			good_alive--;
 		}
 	}
+	//endwin();
 
 }

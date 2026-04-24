@@ -7,7 +7,10 @@
 //#include "combat.h"
 //#include <map>
 #include "turned_based.h"
+//#include "Ncurses.h"
 using namespace std;
 
 int main() {
+	turned_based();
+	//create_map();
 }

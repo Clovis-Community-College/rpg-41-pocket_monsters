@@ -4,6 +4,7 @@
 #include <clocale>
 #include <ctime>
 #include <cstdlib>
+#include "turned_based.h"
 //#include "combat.h"    //MAKE SURE TO UNCOMMENT THIS OUT TOO LOGAN!!
 using namespace std;
 
@@ -120,7 +121,7 @@ void create_map() {
 		if (map_data[player_posy][player_posx] == DOGGO) {
 			clear();
 			refresh();
-			//combat();                                                //REMINDER FOR LOGAN: FIX THE COMBAT FUNCTION!!!!!!!!!!!!
+			turned_based();                                                //REMINDER FOR LOGAN: FIX THE COMBAT FUNCTION!!!!!!!!!!!!
 			clear();
 		}
 		int exception_case = player_posx - (VIEWER_COLS/2);
