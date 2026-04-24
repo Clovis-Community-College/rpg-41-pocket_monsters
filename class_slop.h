@@ -13,6 +13,10 @@ class slop {//Actor class but my names are better
 		int y = 0;
 		int movement = 0; //this is how many spaces each class can move within the battlefield
 		int sick_days = 0;
+		int batt_col = 0;
+		int batt_line = 0;
+		char sprite = '?';
+		bool life = true;//if false they are dead
 	public:
 	virtual ~slop() = default;
 		enum SICKNESS {
@@ -24,6 +28,28 @@ class slop {//Actor class but my names are better
 			ROIDED,
 			VITALITY
 		};
+		bool is_dead() const {
+			return life;
+		}
+		void set_life(bool death) {
+			life = death;
+		}
+		char get_sprite() const {
+			return sprite;
+		}
+		void set_sprite(char c) {
+			sprite = c;
+		}
+		void set_battle_position(int col, int line) {
+			batt_col = col;
+			batt_line = line;
+		}
+		int get_batt_col() const {
+			return batt_col;
+		}
+		int get_batt_line() const {
+			return batt_line;
+		}
 		string get_name() const {
 			return name;
 		}
@@ -108,12 +134,6 @@ class move {
 		void is_special_effect(bool temp) {
 			special_effect = temp;
 		}
-		/*bool is_area_of_effect() const {
-			return area_of_effect;
-		}*/
-		/*void set_area_of_effect(bool temp) {
-			area_of_effect = temp;
-		}*/
 		int get_range() const {
 			return range;
 		}
@@ -136,6 +156,7 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 		vector<move> moves{3};
 		//STATUS sp_effect;
 	public:
+		bool criminal_record = false;
 		void add_move(move &temp, int move_index) {
 			moves.at(move_index) = temp;
 		}
@@ -162,14 +183,6 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 					return 0.5;
 			}
 		}
-};
-
-class Kieth: public Software_Engineers {
-	Kieth() {
-		name = "Kieth";
-		hp = 20;
-		instinct = 5;
-	}
 };
 class Make_Mod: public move {
 	public:
@@ -219,12 +232,17 @@ class SegFault: public move {
 		right = 2;
 		}
 };
-class Bjarne: public Software_Engineers {//maybe make status its own class
-	Bjarne() {
-		name = "Bjarne";
-		hp = 30;
-		instinct = 3;
-	}
+class Kieth: public Software_Engineers {
+	public:
+		Make_Mod make_mode();
+		Debug debug();
+		SegFault segfault();
+		Kieth() {
+			name = "Kieth";
+			hp = 20;
+			instinct = 5;
+			sprite = 'K';
+		}
 };
 class Shotgun: public move {
 	Shotgun() {
@@ -269,13 +287,27 @@ class ShOt: public move {
 		right = 0;
 	}
 };
-class Guava: public Software_Engineers {//AOE guy
-	Guava() {
-		name = "Guava";
-		hp = 25;
-		instinct = 3;
-	}
+class Bjarne: public Software_Engineers {//maybe make status its own class
+	public:
+	Shotgun shotgun();
+	G_U_N gun();
+	ShOt shot();
+		Bjarne() {
+			name = "Bjarne";
+			hp = 30;
+			instinct = 3;
+			sprite = 'B';
+		}
 };
+/*class Guava: public Software_Engineers {//AOE guy
+	public:
+		Guava() {
+			name = "Guava";
+			hp = 25;
+			instinct = 3;
+			sprite = 'G';
+		}
+};*/
 class Garbage_Collector: public move {
 	Garbage_Collector() {
 		auto& [up, down, left, right] = area_of_effect;
@@ -304,13 +336,26 @@ class Trash_Panda_Stampede: public move {
 		right = 3;
 	};
 };
-class Mencareli: public Software_Engineers {
-	Mencareli() {
-		name = "Mencareli";
-		hp = 50;
-		instinct = 1;
-	}
+class Guava: public Software_Engineers {//AOE guy
+	public:
+		Garbage_Collector garbage_collector();
+		Trash_Panda_Stampede trash_panda_stampede();
+		Guava() {
+			name = "Guava";
+			hp = 25;
+			instinct = 3;
+			sprite = 'G';
+		}
 };
+/*class Mencareli: public Software_Engineers {
+	public:
+		Mencareli() {
+			name = "Mencareli";
+			hp = 50;
+			instinct = 1;
+			sprite = 'M';
+		}
+};*/
 class Rage_Bait: public move {
 	Rage_Bait() {
 		auto& [up, down, left, right] = area_of_effect;
@@ -356,45 +401,150 @@ class All_Rage_No_Bait: public move {
 		right = 2;
 	 }
 };
+class Mencareli: public Software_Engineers {
+	public:
+		Rage_Bait rage_bait();
+		Master_Bait master_bait();
+		All_Rage_No_Bait all_rage_no_bait();
+		Mencareli() {
+			name = "Mencareli";
+			hp = 50;
+			instinct = 1;
+			sprite = 'M';
+		}
+};
 class Mark : public Software_Engineers {//uses tcg cards to cause different effects
 };
 
 
 class Doggos : public slop, public move{//monster class
 	vector<move> moves{2};
+	public:
+		bool criminal_record = true;
+};
+class Rabies_Foam: public move {
+	public:
+	Rabies_Foam() {
+		auto& [up, down, left, right] = area_of_effect;
+		move_name = "Rabies_Foam";
+		description = "spews the foam coming out of their mouth because of the rabies";
+		dmg = 7;
+		special_effect = false;
+		range = 3;
+		up = 1;
+		down = 0;
+		right = 4;
+		left = 4;
+	}
 };
 class The_Old_Yeller : public Doggos{
+	public:
+	Rabies_Foam rabies_foam();
 	The_Old_Yeller() {
 		name = "The Old Yeller";
 		hp = 150;
 		instinct = 5;
+		sprite = 'Y';
+	}
+};
+class Sieg_Heil: public move {
+	public:
+	Sieg_Heil() {
+		auto& [up, down, left, right] = area_of_effect;
+		move_name = "Sieg Heil";
+		description = "barks in salute for victory";
+		dmg = 2;
+		special_effect = false;
+		range = 2;
+		up = 2;
+		down = 0;
+		right = 3;
+		left = 3;
 	}
 };
 class German_Sheperd : public Doggos{
+	public:
+	Sieg_Heil sieg_hiel();
 	German_Sheperd() {
 		name = "German_Sheperd";
 		hp = 6;
 		instinct = 2;
+		sprite = 'N';
+	}
+};
+class Yo_Quiero_Taco_Bell : public move {
+	public:
+	Yo_Quiero_Taco_Bell() {
+		auto& [up,down,right,left] = area_of_effect;
+		move_name = "Yo Quiero Taco Bell";
+		description = "yO quIErO TAAAco BelL";
+		dmg = 4;
+		special_effect = false;
+		range = 2;
+		up = 1;
+		down = 0;
+		left = 0;
+		right = 0;
 	}
 };
 class Chihuahua : public Doggos{
+	public:
+	Yo_Quiero_Taco_Bell yo_quiero_taco_bell();
 	Chihuahua() {
 		name = "Chihuahua";
 		hp = 3;
 		instinct = 5;
+		sprite = 'c';
+	}
+};
+class Pup_Cup: public move {
+	public:
+	Pup_Cup() {
+		auto& [up,down,right,left] = area_of_effect;
+		move_name = "Pup Cup";
+		description = "freezes you over with the frost breath creating from eating way too many pup cups";
+		dmg = 2;
+		special_effect = true;
+		//add frostbite special effect
+		range = 3;
+		up = 2;
+		right = 3;
+		left = 3;
+		down = 0;
 	}
 };
 class Husky : public Doggos {
+	public:
+	Pup_Cup pup_cup();
 	Husky() {
 		name = "Husky";
 		hp = 8;
 		instinct = 3;
+		sprite = 'H';
+	}
+};
+class Beyblade: public move {
+	public:
+	Beyblade() {
+		auto& [up,down,right,left] = area_of_effect;
+		move_name = "Beyblade";
+		description = "Beyblade Mode ENGAAAAAGE!!!!";
+		dmg = 1;
+		special_effect = false;
+		range = 0;
+		up = 4;
+		down = 4;
+		right = 4;
+		left = 4;
 	}
 };
 class Turtle : public Doggos {
+	public:
+		Beyblade beyblade();
 	Turtle() {
 		name = "Dog";
 		hp = 15;
 		instinct = 1;
+		sprite = 'D';
 	}
 };
