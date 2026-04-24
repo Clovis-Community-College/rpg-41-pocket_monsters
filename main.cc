@@ -8,11 +8,4 @@
 using namespace std;
 
 int main() {
-	map<string, Software_Engineers> party = {
-		{"Kieth", Kieth()},
-		{"Bjarne", Bjarne()},
-		{"Guava", Guava()},
-		{"Mencareli", Mencareli()}
-	};
-	combat(party);
 }
