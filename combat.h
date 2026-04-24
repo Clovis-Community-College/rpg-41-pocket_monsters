@@ -148,6 +148,10 @@ void combat(Kieth kieth, Mencareli mencareli, Bjarne bjarne, Guava guava) {
 	german_sheperd.set_battle_position(4,43);
 	move(4,43);
 	addch(german_sheperd.get_sprite());
+	bool blocked_up = false;
+	bool blocked_down = false;
+	bool blocked_left = false;
+	bool blocked_right = false;
 
 	char c;
 	for(;;) {
@@ -160,10 +164,38 @@ void combat(Kieth kieth, Mencareli mencareli, Bjarne bjarne, Guava guava) {
 		german_sheperd.set_battle_position(german_sheperd.get_batt_col() + german_sheperd.get_movement(), german_sheperd.get_batt_line());
 		mvaddch(german_sheperd.get_batt_col(), german_sheperd.get_batt_line(), german_sheperd.get_sprite());
 			for(int i = 1; i < (mencareli.get_movement() + 1); i++) {
-				mvaddch(mencareli.get_batt_col() + i, mencareli.get_batt_line(), '*');
-				mvaddch(mencareli.get_batt_col() - i, mencareli.get_batt_line(), '*');
-				mvaddch(mencareli.get_batt_col(), mencareli.get_batt_line() + i, '*');
-				mvaddch(mencareli.get_batt_col(), mencareli.get_batt_line() - i, '*');
+				if(!blocked_up) {
+					if (battle_map.at(mencareli.get_batt_col() + i).at(mencareli.get_batt_line()) == ' ') {
+						mvaddch(mencareli.get_batt_col() + i, mencareli.get_batt_line(), '*');
+					}
+					else {
+						blocked_up = true;
+					}
+				}
+				if(!blocked_down) {
+					if (battle_map.at(mencareli.get_batt_col() - i).at(mencareli.get_batt_line()) == ' ') {
+						mvaddch(mencareli.get_batt_col() - i, mencareli.get_batt_line(), '*');
+					}
+					else {
+						blocked_down = true;
+					}
+				}
+				if(!blocked_left) {
+					if (battle_map.at(mencareli.get_batt_col()).at(mencareli.get_batt_line() + i) == ' ') {
+						mvaddch(mencareli.get_batt_col(), mencareli.get_batt_line() + i, '*');
+					}
+					else {
+						blocked_left = true;
+					}
+				}
+				if(!blocked_right) {
+					if (battle_map.at(mencareli.get_batt_col()).at(mencareli.get_batt_line() - i) == ' ') {
+						mvaddch(mencareli.get_batt_col(), mencareli.get_batt_line() - i, '*');
+					}
+					else {
+						blocked_right = true;
+					}
+				}
 			}
 		for(;;) {
 			c = getch();
