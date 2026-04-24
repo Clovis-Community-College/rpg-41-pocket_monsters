@@ -1,14 +1,18 @@
 //#include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
-#include "class_slop.h"
+//#include "class_slop.h"
 #include <curses.h>
 #include <string>
 #include <map>
 #include <cstdlib>
 #include <ctime>
+#include "bridge_pain.h"
 using namespace std;
 
 void combat(map<string, Software_Engineers> &party) {
+	vector<slop*> after_party = {new Kieth(), new Bjarne(), new Guava(), new Mencareli()};
+	vector<slop*> dog_park = {new Turtle(), new Husky(), new Chihuahua(), new German_Sheperd()};
+	Sphere foot_race(after_party, dog_park);
 	srand(time(nullptr));
 	vector<string> battle_map {	
 	"#################################################################################################",
@@ -127,6 +131,7 @@ void combat(map<string, Software_Engineers> &party) {
 	move(4,43);
 	addch(pack.at("German_Sheperd").get_sprite());
 	for(;;) {
+
 		break;
 	}
 	getch();//waits for user key;

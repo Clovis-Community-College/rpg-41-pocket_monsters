@@ -156,6 +156,7 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 		vector<move> moves{3};
 		//STATUS sp_effect;
 	public:
+		bool criminal_record = false;
 		void add_move(move &temp, int move_index) {
 			moves.at(move_index) = temp;
 		}
@@ -183,16 +184,6 @@ class Software_Engineers : public slop, public move {//Heroes class, again my na
 			}
 		}
 };
-
-/*class Kieth: public Software_Engineers {
-	public:
-		Kieth() {
-			name = "Kieth";
-			hp = 20;
-			instinct = 5;
-			sprite = 'K';
-		}
-};*/
 class Make_Mod: public move {
 	public:
 	Make_Mod() {
@@ -253,15 +244,6 @@ class Kieth: public Software_Engineers {
 			sprite = 'K';
 		}
 };
-/*class Bjarne: public Software_Engineers {//maybe make status its own class
-	public:
-		Bjarne() {
-			name = "Bjarne";
-			hp = 30;
-			instinct = 3;
-			sprite = 'B';
-		}
-};*/
 class Shotgun: public move {
 	Shotgun() {
 		auto& [up, down, left, right] = area_of_effect;
@@ -437,6 +419,8 @@ class Mark : public Software_Engineers {//uses tcg cards to cause different effe
 
 class Doggos : public slop, public move{//monster class
 	vector<move> moves{2};
+	public:
+		bool criminal_record = true;
 };
 class Rabies_Foam: public move {
 	public:
