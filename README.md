@@ -14,3 +14,5 @@ Our game is quiet simple you go around releasing the dogs from rabies. With the 
 Suffering:
 
 The classes all run off two parent classes called move and slop. Slop handles the key vraibles that all things have in our game such as hp and instinct. These two then go off to form the other two main classes which are our heroes called Software Engineers and Doggos. The move part of the classes handles everything that deals with the moves like dmg and if they are aoe or not. These two branches branch off into different directions software engineers create all the heroes, having their own unique class and the same applies to the doggo class which handles the creation of the different breeds of dogs you will encounter.
+<img width="2760" height="6482" alt="image" src="https://github.com/user-attachments/assets/959bb7ad-52ff-4e2d-8334-0b73a5c61cc9" />
+
